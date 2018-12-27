@@ -111,7 +111,7 @@ def find_tag_coord(test, tagType):
             None
 
     else:
-        
+
         print('NEW TAG')
 
     dicElements.clear()
