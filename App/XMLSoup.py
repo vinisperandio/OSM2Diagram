@@ -88,15 +88,14 @@ def find_ID(list):
 
 def find_tag_coord(test, tagType):
     if tagType == 'way':
+        find_coord_stereotypes_Way(test)
         if test.find('tag'):
-            find_coord_stereotypes_Way(test)
             listWay.append(dicElements.copy())
         #else:
         if not test.find(k="name"):
             if find_ID(test) in idMultipolygon:
                 None
             else:
-                find_coord_stereotypes_Way(test)
                 listIncom.append(dicElements.copy())
 
     elif tagType == 'node':
