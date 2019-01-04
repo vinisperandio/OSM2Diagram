@@ -134,7 +134,7 @@ def find_region_extent(list, ref):
 #with open(sys.argv[1]) as xml_file:
 ini = time.time()
 
-with open("App/map.osm", encoding='UTF-8') as xml_file:
+with open("App/map.osm") as xml_file: #, encoding='UTF-8'
     soup = BeautifulSoup(xml_file, 'lxml')
 
 #### PEGANDO TAGs WAY
@@ -163,8 +163,8 @@ print(graph.driveGraph(listAllEntities))
 fileName = xml_file.name
 listNames = scriptMongo.scriptGeneration(listAllEntities, fileName[4:])
 listNames = sorted(set(listNames))
-print(listNames)
-print("Number of entity:" + str(len(listNames)))
+#print(listNames)
+#print("Number of entity:" + str(len(listNames)))
 
 
 #### GERAR SHP
@@ -173,7 +173,7 @@ multipolygon=0
 point=0
 
 for i in listNames:
-    with open("Resultado/"+ i +".geojson", encoding='windows-1252') as file: #, encoding='windows-1252'
+    with open("Resultado/"+ i +".geojson") as file: #, encoding='windows-1252'
         arq = json.load(file)
     data = json.dumps(arq)
 
@@ -186,13 +186,13 @@ for i in listNames:
     # print(i)
     # print()
 
-    # if linestring > multipolygon:
-    #     os.system("ogr2ogr -nlt LINESTRING -skipfailures Resultado/"+i+".shp Resultado/"+i+".geojson")
-    # elif multipolygon > linestring:
-    #     os.system("ogr2ogr -nlt MULTIPOLYGON -skipfailures Resultado/" + i + ".shp Resultado/" + i + ".geojson")
-    # else:
-    #     os.system("ogr2ogr -f \"ESRI Shapefile\" Resultado/" + i + ".shp Resultado/" + i + ".geojson")
-    #
+    if linestring > multipolygon:
+        os.system("ogr2ogr -nlt LINESTRING -skipfailures Resultado/"+i+".shp Resultado/"+i+".geojson")
+    elif multipolygon > linestring:
+        os.system("ogr2ogr -nlt MULTIPOLYGON -skipfailures Resultado/" + i + ".shp Resultado/" + i + ".geojson")
+    else:
+        os.system("ogr2ogr -f \"ESRI Shapefile\" Resultado/" + i + ".shp Resultado/" + i + ".geojson")
+
 
 ###### GERAR RELATORIO
 arqNode = open("Resultado/relatorio", 'w+')
