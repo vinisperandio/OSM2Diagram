@@ -72,7 +72,7 @@ def find_coord_stereotypes_Relation(list):
                     flg = flg + 1
 
     dicElements["stereotype"] = "Polygon"
-
+    
     for tag in list.find_all('tag'):
         if tag.get('k') == 'type':
             None
